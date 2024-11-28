@@ -265,15 +265,15 @@ def do_hashps_gauge(num_blocks: int) -> None:
 
 
 def refresh_metrics() -> None:
-    uptime = int(bitcoinrpc("uptime"))
-    meminfo = bitcoinrpc("getmemoryinfo", "stats")["locked"]
+    #uptime = int(bitcoinrpc("uptime"))
+    #meminfo = bitcoinrpc("getmemoryinfo", "stats")["locked"]
     blockchaininfo = bitcoinrpc("getblockchaininfo")
     networkinfo = bitcoinrpc("getnetworkinfo")
     chaintips = len(bitcoinrpc("getchaintips"))
     mempool = bitcoinrpc("getmempoolinfo")
     nettotals = bitcoinrpc("getnettotals")
-    rpcinfo = bitcoinrpc("getrpcinfo")
-    txstats = bitcoinrpc("getchaintxstats")
+    #rpcinfo = bitcoinrpc("getrpcinfo")
+    #txstats = bitcoinrpc("getchaintxstats")
     latest_blockstats = getblockstats(str(blockchaininfo["bestblockhash"]))
 
     banned = bitcoinrpc("listbanned")
@@ -309,16 +309,16 @@ def refresh_metrics() -> None:
     if networkinfo["warnings"]:
         BITCOIN_WARNINGS.inc()
 
-    BITCOIN_TXCOUNT.set(txstats["txcount"])
+    #BITCOIN_TXCOUNT.set(txstats["txcount"])
 
     BITCOIN_NUM_CHAINTIPS.set(chaintips)
 
-    BITCOIN_MEMINFO_USED.set(meminfo["used"])
-    BITCOIN_MEMINFO_FREE.set(meminfo["free"])
-    BITCOIN_MEMINFO_TOTAL.set(meminfo["total"])
-    BITCOIN_MEMINFO_LOCKED.set(meminfo["locked"])
-    BITCOIN_MEMINFO_CHUNKS_USED.set(meminfo["chunks_used"])
-    BITCOIN_MEMINFO_CHUNKS_FREE.set(meminfo["chunks_free"])
+    #BITCOIN_MEMINFO_USED.set(meminfo["used"])
+    #BITCOIN_MEMINFO_FREE.set(meminfo["free"])
+    #BITCOIN_MEMINFO_TOTAL.set(meminfo["total"])
+    #BITCOIN_MEMINFO_LOCKED.set(meminfo["locked"])
+    #BITCOIN_MEMINFO_CHUNKS_USED.set(meminfo["chunks_used"])
+    #BITCOIN_MEMINFO_CHUNKS_FREE.set(meminfo["chunks_free"])
 
     BITCOIN_MEMPOOL_BYTES.set(mempool["bytes"])
     BITCOIN_MEMPOOL_SIZE.set(mempool["size"])
@@ -341,7 +341,7 @@ def refresh_metrics() -> None:
         BITCOIN_LATEST_BLOCK_FEE.set(latest_blockstats["totalfee"] / SATS_PER_COIN)
 
     # Subtract one because we don't want to count the "getrpcinfo" call itself
-    BITCOIN_RPC_ACTIVE.set(len(rpcinfo["active_commands"]) - 1)
+    #BITCOIN_RPC_ACTIVE.set(len(rpcinfo["active_commands"]) - 1)
 
 
 def sigterm_handler(signal, frame) -> None:
