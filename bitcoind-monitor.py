@@ -278,7 +278,7 @@ def refresh_metrics() -> None:
 
     banned = bitcoinrpc("listbanned")
 
-    BITCOIN_UPTIME.set(uptime)
+    #BITCOIN_UPTIME.set(uptime)
     BITCOIN_BLOCKS.set(blockchaininfo["blocks"])
     BITCOIN_PEERS.set(networkinfo["connections"])
     if "connections_in" in networkinfo:
